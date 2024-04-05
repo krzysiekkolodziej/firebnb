@@ -18,7 +18,7 @@ services:
         volume:
           nocopy: true
       - type: bind
-        source: ./MariaDB/migrations
+        source: ./mariadb/migrations
         target: /docker-entrypoint-initdb.d
 
   mongodb:
@@ -37,12 +37,12 @@ services:
         volume:
           nocopy: true
       - type: bind
-        source: ./MongoDB
+        source: ./mongodb
         target: /docker-entrypoint-initdb.d
 
   express:
     build:
-      context: ./Express
+      context: ./api/express
     image: node:slim
     ports:
       - '5000:5000'
