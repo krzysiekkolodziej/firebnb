@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { twMerge } from "tailwind-merge";
+import { useMediaQuery } from "usehooks-ts";
 import { useRegister } from "../../../feature-data-access-api/auth";
 import { registerUserSchema } from "../../../utils/schemas";
 import { Button } from "../components/button";
@@ -35,6 +36,7 @@ export const Register = () => {
     mutate(restValues);
   });
   const navigate = useNavigate();
+  const isMobile = useMediaQuery("(max-width: 1024px)");
 
   const handleNavigateToLogin = () => {
     navigate("/");
@@ -86,10 +88,12 @@ export const Register = () => {
           <Button className="w-full">Sign in</Button>
         </form>
       </div>
-      <img
-        src={hotelRoom}
-        className="w-full h-[100vh] object-cover object-center"
-      />
+      {!isMobile && (
+        <img
+          src={hotelRoom}
+          className="w-full h-[100vh] object-cover object-center"
+        />
+      )}
     </div>
   );
 };
