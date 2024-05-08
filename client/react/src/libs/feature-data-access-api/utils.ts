@@ -1,6 +1,6 @@
 import { getAccessToken } from "./auth";
 
-const apiURL = import.meta.env.VITE_API_URL || "/api";
+const apiURL = import.meta.env.API_URL || "/api";
 
 type RequestMethodType = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
 
