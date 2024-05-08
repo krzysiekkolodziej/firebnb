@@ -1,4 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useUser } from "./libs/feature-data-access-api/auth";
 import { AuthenticatedApp } from "./libs/feature-shell/authenticated-app/AuthenticatedApp";
 import { UnauthenticatedApp } from "./libs/feature-shell/unauthenticated-app/UnauthenticatedApp";
@@ -18,6 +20,7 @@ export const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <ToastContainer position="top-center" autoClose={3000} />
       <FireBnbApps />
     </QueryClientProvider>
   );

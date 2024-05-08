@@ -12,7 +12,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@firebnb/public/assets": ["public/assets/index.ts"]
+      "@firebnb/public": ["public/index.ts"]
     },
     "typeRoots": ["libs/shared", "node_modules/@types"],
     "resolveJsonModule": true

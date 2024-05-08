@@ -41,7 +41,7 @@ export const { useUser, useLogin, useRegister, useLogout } = configureAuth<
     if (!token) return null;
 
     try {
-      return await client("user/me");
+      return await client("auth/me");
     } catch {
       return null;
     }
@@ -52,14 +52,13 @@ export const { useUser, useLogin, useRegister, useLogout } = configureAuth<
       data,
     });
 
-    console.log(response);
-
-    setAccessToken(response);
+    setAccessToken(response?.token);
 
     return { email: data.email };
   },
   registerFn: async (data: RegisterCredentials) => {
-    await client("auth/register", { method: "POST", data });
+    await client("user/create", { method: "POST", data });
+
     return null;
   },
   logoutFn: async () => {

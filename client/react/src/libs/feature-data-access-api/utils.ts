@@ -1,6 +1,6 @@
 import { getAccessToken } from "./auth";
 
-const apiURL = import.meta.env.API_URL || "/api";
+const apiURL = import.meta.env.VITE_API_URL || "/api";
 
 type RequestMethodType = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
 
@@ -10,7 +10,7 @@ type ClientOptions = {
   method?: RequestMethodType;
 } & RequestInit;
 
-async function client(
+export async function client(
   endpoint: string,
   {
     data: requestData,
@@ -52,5 +52,3 @@ async function client(
     return Promise.reject(data);
   }
 }
-
-export { client };

@@ -1,8 +1,8 @@
 /** @type {import('tailwindcss').Config} */
-export default {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
+import globalTailwindPreset from "../../public/global-tailwind-preset.js";
+
+const config = {
+  presets: [globalTailwindPreset],
 };
+
+export default config;
