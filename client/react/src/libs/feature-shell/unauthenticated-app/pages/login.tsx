@@ -63,7 +63,7 @@ export const Login = () => {
       {!isMobile && (
         <img
           src={hotelRoom}
-          className="w-full h-[100vh] object-cover object-center"
+          className="w-full max-w-[60%] h-[100vh] object-cover object-center"
         />
       )}
     </div>
