@@ -2,6 +2,7 @@ import { hotelRoom, logoIcon, styles } from "@firebnb/public";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { twMerge } from "tailwind-merge";
 import { useMediaQuery } from "usehooks-ts";
 import { useLogin } from "../../../feature-data-access-api/auth";
@@ -18,7 +19,11 @@ export const Login = () => {
   const { control, handleSubmit } = useForm<LoginForm>({
     resolver: zodResolver(loginUserSchema),
   });
-  const { mutate } = useLogin();
+  const { mutate } = useLogin({
+    onError() {
+      toast.error("Invalid email or password!");
+    },
+  });
   const handleFormSubmit = handleSubmit((values) => mutate(values));
   const navigate = useNavigate();
   const isMobile = useMediaQuery("(max-width: 1024px)");

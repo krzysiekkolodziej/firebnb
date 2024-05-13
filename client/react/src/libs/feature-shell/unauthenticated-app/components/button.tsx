@@ -5,6 +5,7 @@ export type AppButtonProps = {
   isLoading?: boolean;
   className?: string;
   size?: string;
+  variant?: string;
 };
 
 type ButtonProps = JSX.IntrinsicElements["button"] & AppButtonProps;
@@ -13,6 +14,7 @@ export function Button({
   className,
   disabled = false,
   isLoading,
+  variant,
   size,
   ...buttonProps
 }: ButtonProps) {
@@ -23,6 +25,7 @@ export function Button({
         className: className,
         isLoading,
         size,
+        variant,
       })}
       disabled={disabled}
       {...buttonProps}
@@ -34,6 +37,7 @@ function getButtonClassName({
   disabled,
   className,
   isLoading,
+  variant,
   size = "medium",
 }: AppButtonProps) {
   const baseClass = twMerge(
@@ -41,7 +45,9 @@ function getButtonClassName({
     size === "small" && "px-3 h-6 text-sm",
     size === "medium" && "px-4 h-9 text-md",
     size === "large" && "px-5 h-12 text-lg",
-    disabled ? "bg-gray-400" : "bg-primary hover:opacity-80"
+    disabled ? "bg-gray-400" : "bg-primary hover:opacity-80",
+    variant === "primary-inverted" &&
+      "bg-white text-primary border border-primary hover:bg-primary hover:text-white"
   );
 
   const disabledClass = disabled

@@ -1,4 +1,5 @@
 import { styles } from "public/styles";
+import { ReactNode } from "react";
 import {
   Control,
   FieldValues,
@@ -11,7 +12,7 @@ import { Input, InputProps } from "./input";
 
 export type FormController<TFieldValues extends FieldValues = FieldValues> =
   UseControllerProps<TFieldValues> & {
-    label?: string | null;
+    label?: string | ReactNode | null;
     control?: Control<TFieldValues>;
   };
 
