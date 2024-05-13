@@ -33,8 +33,6 @@ router.post("/create", [authenticateToken], async (req, res) => {
 
   const user = await User.findOne({ email: req.user.email });
 
-  console.log(user);
-
   const user_id = user.id;
 
   if (!space || !cost || !address) {
