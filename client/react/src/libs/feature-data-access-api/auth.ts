@@ -64,7 +64,7 @@ export const { useUser, useLogin, useRegister, useLogout } = configureAuth<
   logoutFn: async () => {
     removeTokens();
 
-    window.location.reload();
+    window.location.href = "/";
     return null;
   },
 });
