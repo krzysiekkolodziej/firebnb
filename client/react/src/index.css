@@ -12,3 +12,11 @@ body {
   font-family: "Roboto", sans-serif;
   scroll-behavior: smooth;
 }
+
+.rdrDefinedRangesWrapper {
+  display: none;
+}
+
+.rdrDayToday .rdrDayNumber span:after {
+  background: #ff5a5f;
+}

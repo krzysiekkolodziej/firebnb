@@ -1,4 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useUser } from "./libs/feature-data-access-api/auth";
