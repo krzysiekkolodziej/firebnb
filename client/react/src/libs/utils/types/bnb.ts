@@ -1,11 +1,18 @@
 export type BnbType = {
   _id: number;
+  id: number;
   user_id: number;
   address: string;
   space: number;
   cost: number;
   updatedAt: string;
   createdAt: string;
+};
+
+export type AddBnbType = {
+  address: string;
+  space: number;
+  cost: number;
 };
 
 export type BnbsSearchType = {

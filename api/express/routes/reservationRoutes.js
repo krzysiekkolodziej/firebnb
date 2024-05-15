@@ -177,7 +177,14 @@ router.get(
     }
 
     const reservations = await Reservation.findAll(query);
-    res.status(200).json({ data: reservations });
+    const reservationsWithBnb = await Promise.all(
+      reservations?.map(async (reservation) => {
+        const bnb = await Bnb.findById(reservation?.dataValues?.bnbId);
+        return { ...reservation?.get(), bnb: bnb };
+      })
+    );
+
+    res.status(200).json({ data: reservationsWithBnb });
   }
 );
 router.delete(

@@ -1,5 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
-import { BnbsSearchType } from "../utils/types";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-toastify";
+import { AddBnbType, BnbType, BnbsSearchType } from "../utils/types";
 import { client } from "./utils";
 
 async function getBnbs(bnbsList?: BnbsSearchType) {
@@ -19,5 +20,58 @@ export function useBnbs(bnbsList?: BnbsSearchType) {
   return useQuery({
     queryKey: ["bnbs", bnbsList],
     queryFn: () => getBnbs(bnbsList),
+  });
+}
+
+export function useDeleteBnb() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (bnbId: string) =>
+      client(`bnb/delete/${bnbId}`, {
+        method: "DELETE",
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["bnbs"] });
+      toast.success("Bnb and related reservations deleted successfully");
+    },
+  });
+}
+
+export function useEditBnb() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (bnb: BnbType) =>
+      client("bnb/update", {
+        method: "PUT",
+        data: bnb,
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["bnbs"] });
+      toast.success("Bnb edited successfully");
+    },
+    onError: () => {
+      toast.error("Bnb edit failed");
+    },
+  });
+}
+
+export function useAddBnb() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (bnb: AddBnbType) =>
+      client("bnb/create", {
+        method: "POST",
+        data: bnb,
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["bnbs"] });
+      toast.success("Bnb added successfully");
+    },
+    onError: () => {
+      toast.error("Bnb add failed");
+    },
   });
 }

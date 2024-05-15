@@ -84,11 +84,11 @@ export const Homepage = () => {
           {bnbs?.map((bnb: BnbType, index: number) => (
             <div
               key={index}
-              className={`flex items-center justify-between ${
+              className={`grid grid-cols-[5fr_1fr] place-items-center justify-items-end ${
                 index !== bnbs?.length - 1 && "border-b border-stone-200"
               }`}
             >
-              <div className="py-1 flex space-x-8">
+              <div className="py-1 grid gap-2 grid-cols-[4fr_2fr_2fr_2fr] w-full">
                 <div className="flex flex-col">
                   <p className={`${styles.paragraph2} text-stone-400`}>
                     Address

@@ -1,5 +1,6 @@
 const express = require("express");
 const Bnb = require("../models/bnb");
+const Reservation = require("../models/reservation");
 const User = require("../models/user");
 const router = express.Router();
 const authenticateToken = require("../middleware/jwtMiddleware");
@@ -77,6 +78,7 @@ router.put(
   async (req, res) => {
     let update = {};
     const { space, cost, address } = req.body;
+
     if (space !== undefined) {
       update.space = space;
     }
@@ -100,7 +102,12 @@ router.delete(
       return res.status(404).json({ error: "BnB not found" });
     }
 
-    res.json({ message: "BnB deleted successfully", deletedBnB });
+    await Reservation.destroy({ where: { bnb_id: req.params.id } });
+
+    res.json({
+      message: "BnB and related reservations deleted successfully",
+      deletedBnB,
+    });
   }
 );
 

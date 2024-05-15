@@ -1,10 +1,11 @@
 import { logoWhite } from "public/assets";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useLogout } from "../../../feature-data-access-api/auth";
 import { IconLogout } from "../../../utils/icons/logout";
 
 export const Navbar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { mutate: logout } = useLogout();
 
   const handleLogout = () => {
@@ -20,13 +21,17 @@ export const Navbar = () => {
       <div className="flex gap-10">
         <button
           onClick={() => navigate("/my-hotels")}
-          className="hover:opacity-80"
+          className={`hover:opacity-80 ${
+            location.pathname !== "/my-hotels" && "opacity-60"
+          }`}
         >
           My Hotels
         </button>
         <button
           onClick={() => navigate("/my-reservations")}
-          className="hover:opacity-80"
+          className={`hover:opacity-80 ${
+            location.pathname !== "/my-reservations" && "opacity-60"
+          }`}
         >
           My Reservations
         </button>
