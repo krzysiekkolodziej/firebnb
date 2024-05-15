@@ -8,7 +8,9 @@ import { AuthenticatedApp } from "./libs/feature-shell/authenticated-app/Authent
 import { UnauthenticatedApp } from "./libs/feature-shell/unauthenticated-app/UnauthenticatedApp";
 
 const FireBnbApps = () => {
-  const { data } = useUser();
+  const { data, isLoading } = useUser();
+
+  if (isLoading) return;
 
   if (!data) {
     return <UnauthenticatedApp />;
@@ -22,7 +24,7 @@ export const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ToastContainer position="top-center" autoClose={3000} />
+      <ToastContainer position="top-center" autoClose={2500} />
       <FireBnbApps />
     </QueryClientProvider>
   );
