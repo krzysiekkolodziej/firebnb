@@ -21,7 +21,11 @@ export const Homepage = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const modalRef = useRef(null);
-  const { mutate: createReservation, status } = useCreateReservation();
+  const {
+    mutate: createReservation,
+    status,
+    isPending: isCreateReservationPending,
+  } = useCreateReservation();
 
   useEffect(() => {
     if (status === "success") {
@@ -142,7 +146,9 @@ export const Homepage = () => {
                     onChange={handleSelect}
                     rangeColors={["#FF5A5F"]}
                   />
-                  <Button>Confirm reservation</Button>
+                  <Button isLoading={isCreateReservationPending}>
+                    Confirm reservation
+                  </Button>
                 </div>
               </form>
             </div>

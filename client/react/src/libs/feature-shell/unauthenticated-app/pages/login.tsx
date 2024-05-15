@@ -1,5 +1,6 @@
 import { hotelRoom, logoIcon, styles } from "@firebnb/public";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -19,9 +20,17 @@ export const Login = () => {
   const { control, handleSubmit } = useForm<LoginForm>({
     resolver: zodResolver(loginUserSchema),
   });
+  const [isLoading, setIsLoading] = useState(false);
   const { mutate } = useLogin({
+    onMutate: () => {
+      setIsLoading(true);
+    },
     onError() {
+      setIsLoading(false);
       toast.error("Invalid email or password!");
+    },
+    onSuccess: () => {
+      setIsLoading(false);
     },
   });
   const handleFormSubmit = handleSubmit((values) => mutate(values));
@@ -62,7 +71,9 @@ export const Login = () => {
             type="password"
             placeholder="********"
           />
-          <Button className="w-full">Sign in</Button>
+          <Button isLoading={isLoading} className="w-full">
+            Sign in
+          </Button>
         </form>
       </div>
       {!isMobile && (

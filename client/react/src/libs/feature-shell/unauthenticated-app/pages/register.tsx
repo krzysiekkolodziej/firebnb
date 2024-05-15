@@ -1,5 +1,6 @@
 import { hotelRoom, logoIcon, styles } from "@firebnb/public";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -21,11 +22,17 @@ export const Register = () => {
   const { control, handleSubmit } = useForm<RegisterForm>({
     resolver: zodResolver(registerUserSchema),
   });
+  const [isLoading, setIsLoading] = useState(false);
   const { mutate } = useRegister({
+    onMutate: () => {
+      setIsLoading(true);
+    },
     onError(e: { errors: { msg: string }[] }) {
+      setIsLoading(false);
       toast.error(e.errors[0]?.msg);
     },
     onSuccess() {
+      setIsLoading(false);
       toast.success("Account created successfully!");
       navigate("/");
     },
@@ -85,7 +92,9 @@ export const Register = () => {
             type="password"
             placeholder="********"
           />
-          <Button className="w-full">Sign in</Button>
+          <Button isLoading={isLoading} className="w-full">
+            Sign in
+          </Button>
         </form>
       </div>
       {!isMobile && (

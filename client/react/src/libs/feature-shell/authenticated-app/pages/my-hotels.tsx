@@ -19,7 +19,7 @@ import { Navbar } from "../components";
 export const MyHotels = () => {
   const { data: bnbs } = useBnbs();
   const { mutate: deleteBnb } = useDeleteBnb();
-  const { mutate: editBnb, isSuccess: isSuccessEdit } = useEditBnb();
+  const { mutate: editBnb, isSuccess: isSuccessEdit, isPending } = useEditBnb();
   const { mutate: addBnb, isSuccess: isSuccessAdd } = useAddBnb();
   const { data: myUserData } = useUser();
   const myBnbs = bnbs?.filter(
@@ -196,7 +196,9 @@ export const MyHotels = () => {
                     </button>
                   </div>
                 ) : (
-                  <Button disabled={isEditBnbFormEmpty()}>Save</Button>
+                  <Button disabled={isEditBnbFormEmpty()} isLoading={isPending}>
+                    Save
+                  </Button>
                 )}
               </div>
             </form>
