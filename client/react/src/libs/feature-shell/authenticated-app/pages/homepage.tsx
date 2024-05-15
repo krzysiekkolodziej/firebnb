@@ -78,13 +78,13 @@ export const Homepage = () => {
           className="w-screen h-screen object-cover object-bottom opacity-50"
         />
       </div>
-      <div className="bg-white p-10">
+      <div className="bg-white p-5 md:p-10">
         <p className={styles.heading}>All Hotels</p>
         <div className="flex flex-col space-y-2 pt-5">
           {bnbs?.map((bnb: BnbType, index: number) => (
             <div
               key={index}
-              className={`grid grid-cols-[5fr_1fr] place-items-center justify-items-end ${
+              className={`grid gap-2 grid-cols-[5fr_1fr] place-items-center justify-items-end ${
                 index !== bnbs?.length - 1 && "border-b border-stone-200"
               }`}
             >

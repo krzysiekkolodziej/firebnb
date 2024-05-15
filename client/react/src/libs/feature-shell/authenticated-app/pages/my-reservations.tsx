@@ -25,17 +25,17 @@ export const MyReservations = () => {
         <Navbar />
         <img
           src={hotelRoom}
-          className="w-screen h-[7.5rem] object-cover object-center opacity-50"
+          className="w-screen h-24 md:h-[7.5rem] object-cover object-center opacity-50"
         />
       </div>
-      <div className="bg-white p-10">
+      <div className="bg-white p-5 md:p-10">
         <p className={styles.heading}>My Reservations</p>
         <div className="flex flex-col space-y-2 pt-5">
           {myReservations?.data?.map(
             (reservation: ReservationType, index: number) => (
               <div
                 key={index}
-                className={`grid grid-cols-[5fr_1fr] place-items-center justify-items-end ${
+                className={`grid gap-2 grid-cols-[5fr_1fr] place-items-center justify-items-end ${
                   index !== myReservations?.data?.length - 1 &&
                   "border-b border-stone-200"
                 }`}

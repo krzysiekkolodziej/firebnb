@@ -42,9 +42,9 @@ function getButtonClassName({
 }: AppButtonProps) {
   const baseClass = twMerge(
     "flex gap-2 rounded-md items-center justify-center text-white",
-    size === "small" && "px-3 h-6 text-sm",
-    size === "medium" && "px-4 h-9 text-md",
-    size === "large" && "px-5 h-12 text-lg",
+    size === "small" && "px-3 md:h-6 h-8 text-sm",
+    size === "medium" && "px-4 md:h-9 h-12 text-md",
+    size === "large" && "px-5 md:h-12 h-14 text-lg",
     disabled ? "bg-gray-400" : "bg-primary hover:opacity-80",
     variant === "primary-inverted" &&
       "bg-white text-primary border border-primary hover:bg-primary hover:text-white"

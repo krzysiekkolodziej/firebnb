@@ -114,16 +114,16 @@ export const MyHotels = () => {
         <Navbar />
         <img
           src={hotelRoom}
-          className="w-screen h-[7.5rem] object-cover object-center opacity-50"
+          className="w-screen  h-24 md:h-[7.5rem] object-cover object-center opacity-50"
         />
       </div>
-      <div className="bg-white p-10">
+      <div className="bg-white p-5 md:p-10">
         <p className={styles.heading}>My Hotels</p>
         <div className="flex flex-col space-y-2 pt-5">
           {myBnbs?.map((bnb: BnbType, index: number) => (
             <form key={index} onSubmit={handleSubmitEdit(onEditBnb)}>
               <div
-                className={`grid grid-cols-[5fr_1fr] place-items-center justify-items-end ${
+                className={`grid gap-2 grid-cols-[5fr_1fr] place-items-center justify-items-end ${
                   index !== myBnbs?.length - 1 && "border-b border-stone-200"
                 }`}
               >
@@ -206,7 +206,7 @@ export const MyHotels = () => {
           onSubmit={handleSubmitAdd(onAddBnb)}
           className="grid grid-cols-[5fr_1fr] place-items-center justify-items-end"
         >
-          <div className="py-1 grid gap-2 grid-cols-[4fr_2fr_2fr_2fr] w-full">
+          <div className="py-1 grid gap-2 grid-cols-[4fr_2fr_2fr] w-full">
             <div className="flex flex-col">
               <p className={`${styles.paragraph2} text-stone-400`}>Address</p>
               <InputControl
