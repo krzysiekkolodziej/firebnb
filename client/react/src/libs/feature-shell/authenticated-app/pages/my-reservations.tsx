@@ -13,8 +13,6 @@ export const MyReservations = () => {
   const { data: myReservations } = useUserReservations();
   const { mutate: deleteReservation } = useDeleteReservation();
 
-  console.log(myReservations);
-
   const handleDeleteReservation = async (reservation: ReservationType) => {
     await deleteReservation(reservation?.id);
   };
