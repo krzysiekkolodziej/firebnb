@@ -26,13 +26,13 @@ cp .env.example .env
 npm i
 ```
 
-3. Run client server, in client/react
+4. Run client server, in client/react
 
 ```bash
 npm run dev
 ```
 
-4. Your server should be running on localhost:5173
+5. Your server should be running on **localhost:5173**
 
 # Docker
 
