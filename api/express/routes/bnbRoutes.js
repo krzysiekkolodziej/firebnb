@@ -30,11 +30,7 @@ router.get("/index/:id", [validate(bnbParamIdValidator)], async (req, res) => {
   res.json({ bnb });
 });
 router.post("/create", [authenticateToken], async (req, res) => {
-  const { space, cost, address } = req.body;
-
-  const user = await User.findOne({ email: req.user.email });
-
-  const user_id = user.id;
+  const { space, cost, address, user_id } = req.body;
 
   if (!space || !cost || !address) {
     return res

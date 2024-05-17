@@ -81,6 +81,7 @@ export const MyHotels = () => {
       address: valuesAddBnb?.address,
       space: valuesAddBnb?.space,
       cost: valuesAddBnb?.cost,
+      user_id: myUserData?.id,
     });
   };
 

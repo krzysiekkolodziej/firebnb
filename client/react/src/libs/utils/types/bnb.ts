@@ -13,6 +13,7 @@ export type AddBnbType = {
   address: string;
   space: number;
   cost: number;
+  user_id: number;
 };
 
 export type BnbsSearchType = {
