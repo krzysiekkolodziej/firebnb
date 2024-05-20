@@ -1,3 +1,12 @@
-<script setup lang="ts"></script>
+<template>
+  <UnauthenticatedApp v-if="!data && !isLoading" />
+  <AuthenticatedApp v-else-if="data && !isLoading" />
+</template>
 
-<template><div class="text-red-400 bg-black">xddd</div></template>
+<script setup lang="ts">
+import { useUser } from "./libs/feature-data-access-api/auth";
+import AuthenticatedApp from "./libs/feature-shell/authenticated-app/authenticated-app.vue";
+import UnauthenticatedApp from "./libs/feature-shell/unauthenticated-app/unauthenticated-app.vue";
+
+const { data, isLoading } = useUser();
+</script>

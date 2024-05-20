@@ -4,8 +4,8 @@ import "react-date-range/dist/theme/default.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useUser } from "./libs/feature-data-access-api/auth";
-import { AuthenticatedApp } from "./libs/feature-shell/authenticated-app/AuthenticatedApp";
-import { UnauthenticatedApp } from "./libs/feature-shell/unauthenticated-app/UnauthenticatedApp";
+import { AuthenticatedApp } from "./libs/feature-shell/authenticated-app/authenticated-app";
+import { UnauthenticatedApp } from "./libs/feature-shell/unauthenticated-app/unauthenticated-app";
 
 const FireBnbApps = () => {
   const { data, isLoading } = useUser();
