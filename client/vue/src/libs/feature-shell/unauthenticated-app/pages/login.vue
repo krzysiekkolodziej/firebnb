@@ -1,1 +1,5 @@
-<template>Login page</template>
+<script setup lang="ts">
+import Button from "../components/button.vue";
+</script>
+
+<template><Button>Tekst</Button></template>

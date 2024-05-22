@@ -3,7 +3,6 @@ import { createApp } from "vue";
 import { createRouter, createWebHistory } from "vue-router";
 import "../../../public/index.css";
 import App from "./App.vue";
-
 import Homepage from "./libs/feature-shell/authenticated-app/pages/homepage.vue";
 import MyHotels from "./libs/feature-shell/authenticated-app/pages/my-hotels.vue";
 import MyReservations from "./libs/feature-shell/authenticated-app/pages/my-reservations.vue";
