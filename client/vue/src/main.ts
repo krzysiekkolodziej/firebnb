@@ -1,6 +1,50 @@
 import { VueQueryPlugin } from "@tanstack/vue-query";
 import { createApp } from "vue";
+import { createRouter, createWebHistory } from "vue-router";
 import "../../../public/index.css";
 import App from "./App.vue";
 
-createApp(App).use(VueQueryPlugin).mount("#root");
+import Homepage from "./libs/feature-shell/authenticated-app/pages/homepage.vue";
+import MyHotels from "./libs/feature-shell/authenticated-app/pages/my-hotels.vue";
+import MyReservations from "./libs/feature-shell/authenticated-app/pages/my-reservations.vue";
+import Login from "./libs/feature-shell/unauthenticated-app/pages/login.vue";
+import Register from "./libs/feature-shell/unauthenticated-app/pages/register.vue";
+
+const unauthenticatedRoutes = [
+  {
+    path: "/",
+    component: Login,
+  },
+  {
+    path: "/login",
+    component: Login,
+  },
+  {
+    path: "/register",
+    component: Register,
+  },
+];
+
+const authenticatedRoutes = [
+  {
+    path: "/",
+    component: Homepage,
+  },
+  {
+    path: "/my-hotels",
+    component: MyHotels,
+  },
+  {
+    path: "/my-reservations",
+    component: MyReservations,
+  },
+];
+
+const token = localStorage.getItem("token");
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes: token ? authenticatedRoutes : unauthenticatedRoutes,
+});
+
+createApp(App).use(VueQueryPlugin).use(router).mount("#root");
