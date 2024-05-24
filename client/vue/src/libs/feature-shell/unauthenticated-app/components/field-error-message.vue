@@ -1,23 +1,18 @@
-import { FieldError } from "react-hook-form";
+<script setup lang="ts">
+const props = defineProps({
+  error: String,
+  fieldName: String,
+});
+</script>
 
-export interface FieldErrorMessageProps {
-  error?: FieldError;
-  fieldName: string;
-}
-
-export function FieldErrorMessage({
-  fieldName,
-  error,
-}: FieldErrorMessageProps) {
-  return (
-    <div className="py-1.5">
-      <p
-        role="alert"
-        id={`${fieldName}-error`}
-        className="text-error text-red-500 text-xs"
-      >
-        {error && error.message}
-      </p>
-    </div>
-  );
-}
+<template>
+  <div className="py-1.5">
+    <p
+      role="alert"
+      :id="`${props.fieldName}-${props.error}`"
+      className="text-error text-red-500 text-xs"
+    >
+      {{ props.error }}
+    </p>
+  </div>
+</template>
