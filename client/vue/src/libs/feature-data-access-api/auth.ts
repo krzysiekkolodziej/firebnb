@@ -31,19 +31,15 @@ export function removeTokens() {
 }
 
 export function useLogin() {
-  const queryClient = useQueryClient();
-
   const mutation = useMutation({
-    mutationFn: (credentials: LoginCredentials) =>
-      client("auth/login", {
-        method: "DELETE",
-        data: { credentials },
-      }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["user-reservations"] });
-      //toast.success("Reservation deleted successfully");
+    mutationFn: async (data: LoginCredentials) => {
+      return await client("auth/login", {
+        method: "POST",
+        data,
+      });
     },
   });
+  console.log(mutation?.data?.value);
 
   setAccessToken(mutation?.data?.value?.token);
 
