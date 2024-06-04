@@ -1,30 +1,34 @@
 <script setup>
-import { styles } from "public/styles";
-import twMerge from "tailwind-merge";
-import { useField } from "vee-validate";
-import { Input, InputProps } from "./input";
+import { ErrorMessage, useField } from "vee-validate";
+import Input from "./input.vue";
+import { styles } from "@firebnb/public";
+import { twMerge } from "tailwind-merge";
+import { watch } from "vue";
 
-const props =
-  defineProps <
-  InputProps >
-  {
-    name: String,
-    placeholder: String,
-    label: String,
-    class: String,
-  };
-const { value, errorMessage } = useField(() => props.name);
+const props = defineProps({
+  name: String,
+  placeholder: String,
+  label: String,
+  class: String,
+  type: {
+    type: String,
+    default: "text",
+  },
+});
 </script>
 
 <template>
   <div :class="twMerge('grid gap-1', props.class)">
-    <label htmlFor="{name}" :class="styles.paragraph2"> {{ props.label }} </label>
+    <label :htmlFor="props.name" :class="styles.paragraph2">
+      {{ props.label }}
+    </label>
     <Input
-      placeholder="placeholder"
-      error="{error}"
+      v-bind="props"
+      :placeholder="props.placeholder"
+      :error="props.error"
+      :type="props.type"
+      :name="props.name"
       class="w-full"
     />
-    <input v-model="value" :placeholder="placeholder" />
-    {{ props.errorMessage }}
   </div>
 </template>

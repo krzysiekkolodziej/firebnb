@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/vue-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/vue-query";
 import { client } from "./utils";
 
 export type User = {
@@ -30,15 +30,24 @@ export function removeTokens() {
   localStorage.removeItem("token");
 }
 
-export async function login(credentials: LoginCredentials) {
-  const response = await client("auth/login", {
-    method: "POST",
-    data: credentials,
+export function useLogin() {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: (credentials: LoginCredentials) =>
+      client("auth/login", {
+        method: "DELETE",
+        data: { credentials },
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user-reservations"] });
+      //toast.success("Reservation deleted successfully");
+    },
   });
 
-  setAccessToken(response?.token);
+  setAccessToken(mutation?.data?.value?.token);
 
-  return { email: credentials.email };
+  return mutation;
 }
 
 export async function register(credentials: RegisterCredentials) {

@@ -43,7 +43,10 @@ const token = localStorage.getItem("token");
 
 const router = createRouter({
   history: createWebHistory(),
-  routes: token ? authenticatedRoutes : unauthenticatedRoutes,
+  routes:
+    token && token !== "undefined"
+      ? authenticatedRoutes
+      : unauthenticatedRoutes,
 });
 
 createApp(App).use(VueQueryPlugin).use(router).mount("#root");

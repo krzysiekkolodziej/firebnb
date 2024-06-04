@@ -13,6 +13,7 @@ export default defineConfig({
   plugins: [
     vue(),
     viteTsConfigPaths({
+      loose: true,
       root: "../../",
     }),
   ],
