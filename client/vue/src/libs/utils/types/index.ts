@@ -9,3 +9,8 @@ export type LoginForm = {
   email: string;
   password: string;
 };
+
+export type DateRangeType = {
+  startDate: Date;
+  endDate: Date;
+}

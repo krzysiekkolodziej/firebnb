@@ -17,8 +17,10 @@ const { handleSubmit } = useForm();
 let searchCriteria = reactive<BnbsSearchType>({});
 const bookMeModalOpen = ref(false);
 const selectedBnb = ref<BnbType | null>(null);
-const startDate = ref(new Date());
-const endDate = ref(new Date());
+const dateRange = reactive({
+  startDate: new Date(),
+  endDate: new Date(),
+});
 const modalRef = ref();
 const { data: bnbs } = useBnbs(searchCriteria);
 const {
@@ -34,8 +36,8 @@ watch(
       bookMeModalOpen.value = false;
       toast.success("Reservation created successfully!");
       selectedBnb.value = null;
-      startDate.value = new Date();
-      endDate.value = new Date();
+      dateRange.startDate = new Date();
+      dateRange.endDate = new Date();
     } else if (newStatus === "error") {
       toast.error("Creating reservation error!");
     }
@@ -45,8 +47,8 @@ watch(
 const onSubmit = async () => {
   if (!selectedBnb) return;
   await createReservation({
-    start_date: startDate.value.toISOString().split("T")[0],
-    end_date: endDate.value.toISOString().split("T")[0],
+    start_date: dateRange.startDate.toISOString().split("T")[0],
+    end_date: dateRange.endDate.toISOString().split("T")[0],
     bnb_id: String(selectedBnb?.value?._id),
   });
 };
@@ -64,11 +66,19 @@ onClickOutside(modalRef, () => {
 });
 
 /*
+const updateValues = (values: DateRangeType) => {
+  dateRange.startDate = values.startDate;
+  dateRange.endDate = values.endDate;
+};
+*/
+
+/*
 const handleSelect = (date) => {
   startDate.value = date.selection.startDate;
   endDate.value = date.selection.endDate;
 };
 */
+
 </script>
 
 <template>
@@ -123,8 +133,7 @@ const handleSelect = (date) => {
         <p :class="twMerge('pb-2.5', styles.heading)">Create reservation</p>
         <form @submit.prevent="handleSubmit(onSubmit)">
           <div class="flex flex-col space-y-2.5">
-            <p :class="styles.paragraph2">Date (start/end)</p>
-
+            <VDatePicker v-model.range="dateRange" mode="date" color="red"  />
             <Button :isLoading="isCreateReservationPending">
               Confirm reservation
             </Button>
