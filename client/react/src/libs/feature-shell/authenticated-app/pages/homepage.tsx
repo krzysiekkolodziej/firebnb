@@ -121,7 +121,6 @@ export const Homepage = () => {
               <Button
                 variant="primary-inverted"
                 onClick={() => handleBookMeClicked(bnb)}
-                className=""
               >
                 Book me!
               </Button>

@@ -73,7 +73,7 @@ export function useRegister() {
   });
 }
 
-export async function logout() {
+export function logout() {
   removeTokens();
   window.location.href = "/";
 

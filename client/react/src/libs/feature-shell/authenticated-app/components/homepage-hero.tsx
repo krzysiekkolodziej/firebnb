@@ -25,7 +25,7 @@ export const HomepageHero = ({ onSearch }: HomepageHeroProps) => {
         <span className="text-3xl md:text-6xl font-bold ">HOTEL FOR STAY</span>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="p-3 flex flex-col md:flex-row space-y-4 md:space-x-4 bg-white rounded-lg w-fit mx-auto">
+        <div className="p-3 flex flex-col md:flex-row md:py-4 md:space-x-4 bg-white rounded-lg w-fit mx-auto">
           <div className="flex flex-col">
             <div className="flex gap-2">
               <IconAddress />
@@ -75,7 +75,7 @@ export const HomepageHero = ({ onSearch }: HomepageHeroProps) => {
           </div>
           <button
             type="submit"
-            className="ml-auto md:ml-0 text-white hover:opacity-80"
+            className="ml-auto md:ml-0 pt-1 md:pt-0 text-white hover:opacity-80"
           >
             <IconSearch />
           </button>
