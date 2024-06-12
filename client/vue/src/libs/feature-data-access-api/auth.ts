@@ -1,5 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/vue-query";
 import { client } from "./utils";
+import { toast } from "vue3-toastify";
+import { useRouter } from "vue-router";
 
 export type User = {
   email: string;
@@ -18,6 +20,7 @@ export type RegisterCredentials = {
   email: string;
   password: string;
 };
+
 export function getAccessToken() {
   return localStorage.getItem("token");
 }
@@ -38,16 +41,36 @@ export function useLogin() {
         data,
       });
     },
+    onError() {
+      toast.error("Invalid email or password!");
+    },
+    onSuccess(data) {
+      setAccessToken(data?.token);
+      window.location.reload();
+    }
   });
-  console.log(mutation?.data?.value);
-
-  setAccessToken(mutation?.data?.value?.token);
 
   return mutation;
 }
 
-export async function register(credentials: RegisterCredentials) {
-  return await client("user/create", { method: "POST", data: credentials });
+export function useRegister() {
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: async (data: RegisterCredentials) => {
+      return await client("user/create", {
+        method: "POST",
+        data,
+      });
+    },
+    onError(e: { errors: { msg: string }[] }) {
+      toast.error(e.errors[0]?.msg);
+    },
+    async onSuccess() {
+      await router.push("/");
+      toast.success("Account created successfully!");
+    },
+  });
 }
 
 export async function logout() {

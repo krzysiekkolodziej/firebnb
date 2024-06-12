@@ -14,6 +14,7 @@ const props = defineProps({
     default: "text",
   },
   value: String,
+  placeholder: String,
 });
 
 const _type = ref(props.type);
@@ -30,20 +31,19 @@ const inputClass = twMerge(
   props.class
 );
 
-const fieldName = ref(props.name);
 </script>
 
 <template>
   <div className="relative">
     <Field
       v-bind="props"
-      v-model="fieldName"
       :type="_type"
       :class="inputClass"
       :aria-invalid="!!props.error"
       :aria-describedby="props.error ? `${props.name}-props.error` : undefined"
       :name="props.name || 'defaultName'"
       :disabled="props.disabled"
+      :placeholder="props.placeholder"
     />
     <button
       v-if="props.type === 'password'"

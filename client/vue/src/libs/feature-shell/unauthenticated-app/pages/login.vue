@@ -10,11 +10,7 @@ import Button from "../components/button.vue";
 import { ref } from "vue";
 import { loginUserSchema } from "../../../utils/schemas";
 import { toTypedSchema } from "@vee-validate/zod";
-
-interface LoginForm {
-  email: string;
-  password: string;
-}
+import type { LoginForm } from "../../../utils/types";
 
 const { handleSubmit } = useForm<LoginForm>({
   validationSchema: toTypedSchema(loginUserSchema),
@@ -51,10 +47,9 @@ const handleNavigateToRegister = () => {
           Create a new account!
         </button>
       </div>
-      <form @submit="handleFormSubmit" class="space-y-2.5">
+      <form @submit.prevent="handleFormSubmit" class="space-y-2.5">
         <InputControl
           label="Email address"
-          type="text"
           name="email"
           placeholder="mail@example.com"
         />
