@@ -2,18 +2,16 @@
 import { hotelRoom, styles } from "@firebnb/public";
 import { twMerge } from "tailwind-merge";
 import { ref, reactive, watch } from "vue";
-import { BnbType, BnbsSearchType } from "../../../utils/types/bnb";
+import { BnbType, BnbsSearchType, DateRangeType } from "../../../utils/types/bnb";
 import { useCreateReservation } from "../../../feature-data-access-api/reservation";
 import { useBnbs } from "../../../feature-data-access-api/bnb";
 import { toast } from "vue3-toastify";
 import moment from "moment";
-import { useForm } from "vee-validate";
 import { onClickOutside } from "@vueuse/core";
 import HomepageHero from "../components/homepage-hero.vue";
 import Navbar from "../components/navbar.vue";
 import Button from "../../unauthenticated-app/components/button.vue";
 
-const { handleSubmit } = useForm();
 let searchCriteria = reactive<BnbsSearchType>({});
 const bookMeModalOpen = ref(false);
 const selectedBnb = ref<BnbType | null>(null);
@@ -46,6 +44,7 @@ watch(
 
 const onSubmit = async () => {
   if (!selectedBnb) return;
+  console.log(dateRange)
   await createReservation({
     start_date: dateRange.startDate.toISOString().split("T")[0],
     end_date: dateRange.endDate.toISOString().split("T")[0],
@@ -65,19 +64,10 @@ onClickOutside(modalRef, () => {
   bookMeModalOpen.value = false;
 });
 
-/*
-const updateValues = (values: DateRangeType) => {
-  dateRange.startDate = values.startDate;
-  dateRange.endDate = values.endDate;
+const updateDateRange = (newDateRange: DateRangeType) => {
+  dateRange.startDate = newDateRange.start;
+  dateRange.endDate = newDateRange.end;
 };
-*/
-
-/*
-const handleSelect = (date) => {
-  startDate.value = date.selection.startDate;
-  endDate.value = date.selection.endDate;
-};
-*/
 
 </script>
 
@@ -131,9 +121,17 @@ const handleSelect = (date) => {
         class="p-5 bg-white rounded-lg fixed z-20 top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 shadow-background"
       >
         <p :class="twMerge('pb-2.5', styles.heading)">Create reservation</p>
-        <form @submit.prevent="handleSubmit(onSubmit)">
+        <form @submit.prevent="onSubmit">
           <div class="flex flex-col space-y-2.5">
-            <VDatePicker v-model.range="dateRange" mode="date" color="red"  />
+            <VDatePicker
+              v-model.range="dateRange"
+              mode="date"
+              color="red"
+              :minDate="new Date()"
+              :date="new Date()"
+              :maxDate="new Date(new Date().setDate(new Date().getDate() + 90))"
+              @update:modelValue="updateDateRange"
+            />
             <Button :isLoading="isCreateReservationPending">
               Confirm reservation
             </Button>

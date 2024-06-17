@@ -23,3 +23,8 @@ export type BnbsSearchType = {
   max_space?: number;
   address_like?: string;
 };
+
+export type DateRangeType = {
+  start: Date;
+  end: Date;
+}
