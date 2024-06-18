@@ -86,16 +86,13 @@ const isEditBnbFormEmpty = () => {
 const submitEditBnb = async () => {
   if (isEditBnbFormEmpty()) return;
 
-  console.log(editedBnb.value);
-
   if (editedBnb.value?._id) {
     await editBnb({
       ...editedBnb.value,
       id: editedBnb.value._id,
-      address:
-        String(addressFieldEdit?.value) || String(editedBnb.value?.address),
-      space: Number(spaceFieldEdit?.value) || Number(editedBnb.value?.space),
-      cost: Number(costFieldEdit?.value) || Number(editedBnb.value?.cost),
+      address: addressFieldEdit.value || editedBnb.value?.address,
+      space: spaceFieldEdit.value || editedBnb.value?.space,
+      cost: costFieldEdit.value || editedBnb.value?.cost,
     });
   }
 };
@@ -108,10 +105,10 @@ const submitAddBnb = async () => {
   if (isAddBnbFormEmpty()) return;
 
   await addBnb({
-    address: String(addressFieldAdd?.value),
-    space: Number(spaceFieldAdd?.value),
-    cost: Number(costFieldAdd?.value),
-    user_id: Number(myUserData.value?.id),
+    address: addressFieldAdd?.value,
+    space: spaceFieldAdd?.value,
+    cost: costFieldAdd?.value,
+    user_id: myUserData.value?.id,
   });
 };
 

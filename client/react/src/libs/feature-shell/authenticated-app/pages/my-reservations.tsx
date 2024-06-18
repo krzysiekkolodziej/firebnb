@@ -29,6 +29,13 @@ export const MyReservations = () => {
       <div className="bg-white p-5 md:p-10">
         <p className={styles.heading}>My Reservations</p>
         <div className="flex flex-col space-y-2 pt-5">
+          {myReservations?.data?.length < 1 && (
+            <div
+              className={`${styles.heading} text-stone-400 font-thin text-center mt-20`}
+            >
+              No reservations
+            </div>
+          )}
           {myReservations?.data?.map(
             (reservation: ReservationType, index: number) => (
               <div
