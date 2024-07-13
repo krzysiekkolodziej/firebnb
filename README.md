@@ -6,31 +6,6 @@
 
 1. Copy .env.example into .env
 
-## React.js
-
-1. Go to client/react folder
-
-```bash
-cd client/react
-```
-
-2. Copy the example environment file:
-
-```bash
-cp .env.example .env
-```
-
-3. Install necessary dependencies
-
-```bash
-npm i
-```
-
-4. Run client server, in client/react
-
-```bash
-npm run dev
-```
 
 5. Your server should be running on **localhost:5173**
 
@@ -39,7 +14,9 @@ npm run dev
 each app can be run using:
 
 ```bash
-docker compose up app_name
+App names: mysql, monodb, express, react_app, vue_app, angular_app
+
+docker compose up app_name --build
 ```
 
 you can start all apps at once using:
