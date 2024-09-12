@@ -21,13 +21,9 @@ export async function client(
   const accessToken = getAccessToken();
   const headers: Record<string | "Authorization", string> = {};
 
-  if (accessToken) {
-    headers.Authorization = `Bearer ${accessToken}`;
-  }
+  if (accessToken) headers.Authorization = `Bearer ${accessToken}`;
 
-  if (requestData) {
-    headers["Content-Type"] = "application/json";
-  }
+  if (requestData) headers["Content-Type"] = "application/json";
 
   const config = {
     method: requestData ? "POST" : "GET",
@@ -41,14 +37,9 @@ export async function client(
 
   const response = await window.fetch(`${apiURL}/${endpoint}`, config);
 
-  if (response.status === 401) {
-    return Promise.reject({ message: "Please re-authenticate." });
-  }
+  if (response.status === 401) return Promise.reject({ message: "Please re-authenticate." });
 
   const data = await response.json().catch(() => null); // catch in case of empty response
-  if (response.ok) {
-    return data;
-  } else {
-    return Promise.reject(data);
-  }
+  if (response.ok) return data;
+  else return Promise.reject(data);
 }

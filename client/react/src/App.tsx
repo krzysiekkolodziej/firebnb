@@ -12,9 +12,7 @@ const FireBnbApps = () => {
 
   if (isLoading) return;
 
-  if (!data) {
-    return <UnauthenticatedApp />;
-  }
+  if (!data) return <UnauthenticatedApp />;
 
   return <AuthenticatedApp />;
 };

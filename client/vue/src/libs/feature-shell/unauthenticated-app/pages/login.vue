@@ -37,7 +37,7 @@ const handleNavigateToRegister = () => {
       <div class="pb-3">
         <img :src="logoIcon" />
       </div>
-      <div :class="styles.paragraph">Sign in to your account</div>
+      <div :class="styles.heading">Sign in to your account</div>
       <div :class="twMerge('text-stone-400', styles.paragraph)">
         Not a member?
         <button
