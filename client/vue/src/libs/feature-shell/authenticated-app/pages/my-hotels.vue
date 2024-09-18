@@ -75,6 +75,9 @@ const handleDeleteBnb = async (bnb: BnbType) => {
 
 const handleStartEditBnb = (bnb: BnbType) => {
   editedBnb.value = bnb;
+  setAddressFieldEdit(bnb?.address || '');
+  setSpaceFieldEdit(bnb?.space || '');
+  setCostFieldEdit(bnb?.cost || '');
 };
 
 const isEditBnbFormEmpty = () => {
