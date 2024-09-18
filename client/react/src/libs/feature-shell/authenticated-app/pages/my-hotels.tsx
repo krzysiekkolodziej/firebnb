@@ -48,6 +48,11 @@ export const MyHotels = () => {
 
   const handleStartEditBnb = (bnb: BnbType) => {
     setEditedBnb(bnb);
+    resetEdit({
+      address: bnb?.address,
+      space: bnb?.space,
+      cost: bnb?.cost,
+    });
   };
 
   const isEditBnbFormEmpty = () => {
