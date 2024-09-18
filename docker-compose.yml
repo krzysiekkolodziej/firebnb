@@ -43,7 +43,6 @@ services:
   express:
     build:
       context: ./api/express
-    image: node:slim
     ports:
       - '5000:5000'
     depends_on:

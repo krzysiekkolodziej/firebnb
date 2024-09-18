@@ -6,7 +6,7 @@ COPY ./tsconfig.base.json .
 COPY ./public ./public
 COPY ./client/react/package*.json ./client/react/
 
-RUN npm install --force --prefix ./client/react
+RUN npm ci --legacy-peer-deps --prefix ./client/react
 
 COPY ./client/react ./client/react
 

@@ -6,7 +6,7 @@ COPY ./tsconfig.base.json .
 COPY ./public ./public
 COPY ./client/vue/package*.json ./client/vue/
 
-RUN npm install --force --prefix ./client/vue
+RUN npm ci --legacy-peer-deps --prefix ./client/vue
 
 COPY ./client/vue ./client/vue
 
