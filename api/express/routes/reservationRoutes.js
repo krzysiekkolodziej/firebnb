@@ -95,7 +95,7 @@ router.put(
     const { id, start_date, end_date } = req.body;
     let reservation = await Reservation.findByPk(id);
     const user = await User.findOne({ email: req.user.email });
-    console.log(id, start_date, end_date, reservation, user);
+    
     if (!reservation) {
       res.status(404).json({ message: "not found" });
     }

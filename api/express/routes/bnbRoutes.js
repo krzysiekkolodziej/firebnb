@@ -73,7 +73,7 @@ router.put(
   [authenticateToken, validate(bnbUpdateValidator)],
   async (req, res) => {
     let update = {};
-    const { space, cost, address } = req.body;
+    const { id, space, cost, address } = req.body;
 
     if (space !== undefined) {
       update.space = space;
@@ -84,7 +84,7 @@ router.put(
     if (address !== undefined) {
       update.address = address;
     }
-    const bnb = await Bnb.findByIdAndUpdate(req.body.id, update);
+    const bnb = await Bnb.findByIdAndUpdate(id, update);
     res.status(200).json({ message: "BnB updated successfully", bnb });
   }
 );
