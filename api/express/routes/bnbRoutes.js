@@ -40,7 +40,7 @@ router.post("/create", [authenticateToken], async (req, res) => {
 
   const newBnB = await Bnb.create({ user_id, space, cost, address });
 
-  res.status(201).json({ message: "BnB created successfully", newBnB });
+  return res.status(201).json({ message: "BnB created successfully", newBnB });
 });
 router.get("/list", [validate(bnbListValidator)], async (req, res) => {
   const { max_space, min_space, user_id, address_like, max_cost, min_cost } =
@@ -66,7 +66,7 @@ router.get("/list", [validate(bnbListValidator)], async (req, res) => {
     query.where("cost").gt(min_cost);
   }
   const bnbs = await query.exec();
-  res.status(200).json(bnbs);
+  return res.status(200).json(bnbs);
 });
 router.put(
   "/update",
@@ -85,7 +85,7 @@ router.put(
       update.address = address;
     }
     const bnb = await Bnb.findByIdAndUpdate(id, update);
-    res.status(200).json({ message: "BnB updated successfully", bnb });
+    return res.status(200).json({ message: "BnB updated successfully", bnb });
   }
 );
 router.delete(
@@ -100,7 +100,7 @@ router.delete(
 
     await Reservation.destroy({ where: { bnb_id: req.params.id } });
 
-    res.json({
+    return res.json({
       message: "BnB and related reservations deleted successfully",
       deletedBnB,
     });

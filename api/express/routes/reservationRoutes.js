@@ -21,7 +21,6 @@ const {
 const {
   reservationUserListValidator,
 } = require("../middleware/validator/reservationUserListValidator");
-const UserRoutes = require("../models/user");
 
 async function isConflicting(start, end, bnb_id, id = null) {
   let query = {
@@ -65,19 +64,19 @@ router.post(
   [authenticateToken, validate(reservationCreateValidator)],
   async (req, res) => {
     const { start_date, end_date, bnb_id } = req.body;
-    const user = await User.findOne({ email: req.user.email });
+    const user = await User.findOne({ where: { email: req.user.email } });
     const user_id = user.id;
     if (start_date > end_date) {
-      res
+      return res
         .status(400)
         .json({ message: "reservation start is later than the end" });
     }
     const bnb = await Bnb.findById(bnb_id);
     if (bnb === null) {
-      res.status(404).json({ message: "bnb not found" });
+      return res.status(404).json({ message: "bnb not found" });
     }
     if (await isConflicting(start_date, end_date, bnb_id)) {
-      res.status(400).json({ message: "reservation date is already reserved" });
+      return res.status(400).json({ message: "reservation date is already reserved" });
     }
     const reservation = await Reservation.create({
       startDate: start_date,
@@ -85,7 +84,7 @@ router.post(
       bnbId: bnb_id,
       userId: user_id,
     });
-    res.status(200).json({ message: "Reservation created", reservation });
+    return res.status(200).json({ message: "Reservation created", reservation });
   }
 );
 router.put(
@@ -94,14 +93,14 @@ router.put(
   async (req, res) => {
     const { id, start_date, end_date } = req.body;
     let reservation = await Reservation.findByPk(id);
-    const user = await User.findOne({ email: req.user.email });
+    const user = await User.findOne({ where: { email: req.user.email } });
     
     if (!reservation) {
-      res.status(404).json({ message: "not found" });
+      return res.status(404).json({ message: "not found" });
     }
     if (reservation.userId !== user["id"]) {
       console.log(reservation.userId, user.id);
-      res.status(403).json({ message: "forbidden" });
+      return res.status(403).json({ message: "forbidden" });
     }
     if (start_date) {
       reservation.startDate = start_date;
@@ -110,7 +109,7 @@ router.put(
       reservation.endDate = end_date;
     }
     if (reservation.endDate < reservation.startDate) {
-      res.status(422).json({ message: "reservation start is later than end" });
+      return res.status(422).json({ message: "reservation start is later than end" });
     }
     if (
       await isConflicting(
@@ -120,11 +119,11 @@ router.put(
         reservation.id
       )
     ) {
-      res.status(400).json({ message: "reservation date is already reserved" });
+      return res.status(400).json({ message: "reservation date is already reserved" });
     }
     console.log(id, start_date, end_date, reservation, user);
     await reservation.save();
-    res.status(200).json({ message: "Successfully updated", reservation });
+    return res.status(200).json({ message: "Successfully updated", reservation });
   }
 );
 router.get(
@@ -133,9 +132,9 @@ router.get(
   async (req, res) => {
     const reservation = await Reservation.findByPk(req.params.id);
     if (!reservation) {
-      res.status(404).json({ message: "Not Found" });
+      return res.status(404).json({ message: "Not Found" });
     }
-    res.status(200).json({ data: reservation });
+    return res.status(200).json({ data: reservation });
   }
 );
 router.get("/list", validate(reservationListValidator), async (req, res) => {
@@ -153,7 +152,7 @@ router.get("/list", validate(reservationListValidator), async (req, res) => {
   }
 
   const reservations = await Reservation.findAll(query);
-  res.status(200).json({ data: reservations });
+  return res.status(200).json({ data: reservations });
 });
 router.get(
   "/list/user",
@@ -161,7 +160,7 @@ router.get(
   async (req, res) => {
     const { start_date, end_date } = req.query;
 
-    const user = await User.findOne({ email: req.user.email });
+    const user = await User.findOne({ where: { email: req.user.email } });
     const user_id = user.id;
 
     let query = {
@@ -184,7 +183,7 @@ router.get(
       })
     );
 
-    res.status(200).json({ data: reservationsWithBnb });
+    return res.status(200).json({ data: reservationsWithBnb });
   }
 );
 router.delete(
@@ -194,14 +193,14 @@ router.delete(
     const { id } = req.params;
     const reservation = await Reservation.findByPk(id);
     if (reservation === null) {
-      res.status(404).json({ message: "reservation not found" });
+      return res.status(404).json({ message: "reservation not found" });
     }
-    const user = await UserRoutes.findOne({ email: req.user.email });
+    const user = await User.findOne({ where: { email: req.user.email } });
     if (reservation.userId !== user.id) {
-      res.status(403).json({ message: "Forbidden" });
+      return res.status(403).json({ message: "Forbidden" });
     }
     await reservation.destroy();
-    res.status(200).json({ message: "successfully deleted", reservation });
+    return res.status(200).json({ message: "successfully deleted", reservation });
   }
 );
 

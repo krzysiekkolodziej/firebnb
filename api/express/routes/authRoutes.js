@@ -27,7 +27,7 @@ router.get("/me", authenticateToken, async (req, res) => {
   const user = await User.findOne({ where: { email: req?.user?.email } });
   const user_id = user?.dataValues?.id;
 
-  res.send({ ...req.user, id: user_id });
+  return res.send({ ...req.user, id: user_id });
 });
 
 module.exports = router;
