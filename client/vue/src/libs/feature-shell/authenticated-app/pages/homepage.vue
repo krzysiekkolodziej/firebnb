@@ -13,6 +13,7 @@ import Navbar from "../components/navbar.vue";
 import Button from "../../unauthenticated-app/components/button.vue";
 
 let searchCriteria = reactive<BnbsSearchType>({});
+
 const bookMeModalOpen = ref(false);
 const selectedBnb = ref<BnbType | null>(null);
 const dateRange = reactive({
